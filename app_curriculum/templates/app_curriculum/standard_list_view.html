@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %} {% for standard in standards %}
+
+  
+    <div class="card col-8 container">
+      <h5 class="card-header">{{standard.name}}</h5>
+      <div class="card-body">
+        <h5 class="card-title">{{standard.name}}</h5>
+        <p class="card-text">{{standard.description}}</p>
+        <a
+          href="{% url 'app_curriculum:subject_list' slug=standard.slug %}"
+          class="btn btn-primary"
+          >Courses</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+
+{% endfor %} {% endblock content %}

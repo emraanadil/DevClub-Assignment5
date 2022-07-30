@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% block content %}
+<form method="post">
+  {% csrf_token %} {{form.as_p}}
+  <input type="submit" name="" value="Update" />
+  <a
+    href="{% url 'app_curriculum:lesson_detail' standard=lessons.Standard.slug subject=lessons.Course.slug slug=lessons.slug %}"
+  >
+    Cancel Update
+  </a>
+</form>
+
+{% endblock content %}

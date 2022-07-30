@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {%load static%} {% block content %}
+<br />
+<div class="container">
+  <div class="row">
+    {% for subject in standards.subjects.all %}
+    <div class="col-sm-6">
+      <div class="card" style="width: 18rem; margin: 5px">
+        <img
+          src="/media/{{subject.image}}"
+          class="card-img-top"
+          alt="subject thumbnail"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{subject.course_id}}</h5>
+          <p class="card-text">{{subject.description|truncatechars:80}}</p>
+          <a
+            href="{% url 'app_curriculum:lesson_list' slug=subject.slug standard=standards.slug %}"
+            class="btn btn-info"
+            >{{subject.name}}</a
+          >
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

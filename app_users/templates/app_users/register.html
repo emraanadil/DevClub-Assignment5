@@ -1,11 +1,21 @@
-{%extends 'home.html'%} {%block content%} {%if registered%}
+{%extends 'base.html'%} {%block content%} 
+{%load crispy_forms_tags%}
+{%if registered%}
 <h2>Thankyou for registering</h2>
 
 {%else%}
-<h3>Fill the form</h3>
 
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %} {{user_form}} {{ profile_form }}
-  <input type="submit" value="Register" class="btn btn-primary" />
-</form>
-{% endif %} {% endblock %}
+  <form class='form' method="post" enctype="multipart/form-data">
+    
+    <div class='col-6 container'>
+      <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;text-align:'center' " >Fill the form</h3>
+
+    {% csrf_token %} {{user_form|crispy}} 
+    
+    {{ profile_form|crispy }}
+    <div class="form-group">
+    <input type="submit" value="Register" class="btn btn-primary" />
+    </div></div>
+  </form>
+  {% endif %} {% endblock %}
+</div>

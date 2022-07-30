@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %}
+<br>
+
+<div class="card" style="width: 18rem; margin:5px;padding:2px">
+  {% for lesson in subjects.lessons.all %}
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"> <a href="{% url 'app_curriculum:lesson_detail' slug=lesson.slug subject=subjects.slug standard=lesson.Standard.slug %}">
+      <bold>Chapter-{{lesson.position}}: {{lesson.name}} </bold> </a></li>  
+    
+    </ul>
+    {% endfor %}
+    
+</div>
+ <div class='btn btn-success' <a href="{% url 'app_curriculum:lesson_create' standard=subjects.standard.slug slug=subjects.slug %}">  
+  Create Lesson</a>
+</div>
+{% endblock content%}

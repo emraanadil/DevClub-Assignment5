@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags%}
+
+{% block content %}
+</br>
+<h3> Lesson Materials </h3>
+<p> Created on {{lessons.created_at}} by {{lessons.created_by}} </p> <br>
+<div class="container embed-responsive embed-responsive-21by9"> 
+    <video name='demo' controls autoplay width='50%' height='40%'>
+    <source src="{{lessons.video.url}}" type="video/mp4"></source>
+  </video> </div></br>
+<a class="btn btn-primary btn-lg" href= "{% url 'app_curriculum:lesson_update' standard=lessons.Standard.slug subject=lessons.Course.slug slug=lessons.slug %}"> Update Lesson Details </a>
+<a class="btn btn-danger btn-lg" href= "{% url 'app_curriculum:lesson_delete' standard=lessons.Standard.slug subject=lessons.Course.slug slug=lessons.slug %}"> Delete Chapter  </a>
+</br>
+<br>
+
+
+<h3> Post your comment or question below: </h4>
+    <form method = 'post'>
+        <div class = 'form-group'>
+            {% csrf_token %}
+            {{form|crispy}}
+            <input type = 'submit' name='form' value='Add Comment' class='btn btn-info btn-sm'>
+        </div>
+    </form>
+
+    {% for comment in lessons.comments.all  %}
+
+    
+    <h4> {{comment.author}} <small> <i> Posted on {{comment.date_added}} </i></small> </h4>
+    <p> {{comment.body}} </p>
+    {% for reply in comment.replies.all  %}
+
+    <h5> {{reply.author}} <small><i> Replied on {{reply.date_added}} </i></small> </h5>
+    <p> {{reply.reply_body}}</p>
+    {% endfor %}
+    
+    <form method = 'post'>
+        <input type = 'hidden' name = 'comment.id' value="{{comment.id}}">
+        <input type = 'hidden' name = 'commend.comment_name' value="{{comment.comment_name}}">
+        {% csrf_token %}
+        {{form2|crispy}}
+        <input type = 'submit' name = 'form2' value='Add Reply' class='btn btn-warning btn-sm'>
+    </form>
+    {% endfor %}
+ 
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+
