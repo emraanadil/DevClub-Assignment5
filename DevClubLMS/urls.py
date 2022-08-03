@@ -19,6 +19,7 @@ import app_users
 from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
+from grading import views as grade_view
 
 
 
@@ -26,5 +27,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",include('app_users.urls')),
-    path("lms/",include('app_curriculum.urls'))
-]
+    path("lms/",include('app_curriculum.urls')),
+    path('grades/', grade_view.index)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

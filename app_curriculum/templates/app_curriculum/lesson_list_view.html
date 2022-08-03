@@ -11,7 +11,8 @@
     {% endfor %}
     
 </div>
- <div class='btn btn-success' <a href="{% url 'app_curriculum:lesson_create' standard=subjects.standard.slug slug=subjects.slug %}">  
+
+ <a class='btn btn-success' <a href="{% url 'app_curriculum:lesson_create' standard=subjects.standard.slug slug=subjects.slug %}">  
   Create Lesson</a>
 </div>
 {% endblock content%}

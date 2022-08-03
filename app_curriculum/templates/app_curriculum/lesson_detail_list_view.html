@@ -5,10 +5,11 @@
 </br>
 <h3> Lesson Materials </h3>
 <p> Created on {{lessons.created_at}} by {{lessons.created_by}} </p> <br>
+{% if lessons.video %}
 <div class="container embed-responsive embed-responsive-21by9"> 
     <video name='demo' controls autoplay width='50%' height='40%'>
     <source src="{{lessons.video.url}}" type="video/mp4"></source>
-  </video> </div></br>
+  </video> </div></br>{% endif %}
 <a class="btn btn-primary btn-lg" href= "{% url 'app_curriculum:lesson_update' standard=lessons.Standard.slug subject=lessons.Course.slug slug=lessons.slug %}"> Update Lesson Details </a>
 <a class="btn btn-danger btn-lg" href= "{% url 'app_curriculum:lesson_delete' standard=lessons.Standard.slug subject=lessons.Course.slug slug=lessons.slug %}"> Delete Chapter  </a>
 </br>

@@ -1,4 +1,4 @@
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from curses.ascii import HT
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
@@ -8,10 +8,11 @@ from app_users.forms import UserForm,UserProfileInfoForm
 from app_users.models import user_profile
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+import app_curriculum
 # Create your views here.
 
 def index(request):
-    return render(request,'base.html')
+    return render(request,'index.html')
 
 def register(request):
     registered = False
@@ -50,11 +51,11 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request,user)
-                return HttpResponseRedirect(reverse('index'))
+                return HttpResponseRedirect(reverse_lazy('app_curriculum:standard_list'))
             else:
                 return HttpResponse("Account is Deactivated")
         else:
-            return HttpResponse("Please use correct id and password")
+            return HttpResponse("Please use correct username and password")
     else:
         return render(request,'app_users/login.html')
 

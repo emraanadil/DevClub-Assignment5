@@ -25,14 +25,15 @@ TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 SECRET_KEY = 'django-insecure-r5($3_zye7)*g)*73j7av+g=unyuui2o9^c!z7x_s)5959&fjk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['emraanadil-lms.herokuapp.com','127.0.0.1','localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_users',
     'app_curriculum',
-    'crispy_forms'
+    'crispy_forms',
+    'grading'
+
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -64,6 +67,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.media',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -121,10 +125,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = '/app_curriculum/static/'
+STATIC_URL = 'static/'
 STATIC_DIR = os.path.join(BASE_DIR,'static')
 STATICFILES_DIRS = [
-    STATIC_DIR,]
+    STATIC_DIR,
+    BASE_DIR/'static'
+   
+    ]
 
 
 
@@ -133,5 +140,5 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = 'media/'

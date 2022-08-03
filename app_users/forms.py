@@ -7,11 +7,8 @@ class UserForm(UserCreationForm):
     email = forms.EmailField()
     class Meta():
         model = User
-        fields = ('username','first_name','last_name','email','password','password2')
-        labels = {
-            'password':"Password",
-            'password2': "Confirm Password"
-        }
+        fields = ('username','first_name','last_name','email')
+        
 
 class UserProfileInfoForm(forms.ModelForm):
     bio = forms.CharField(required=False)

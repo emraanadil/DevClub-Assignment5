@@ -4,15 +4,27 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView,DetailView,ListView,FormView,CreateView,UpdateView,DeleteView
+
 from .forms import CommentForm, LessonForm, ReplyForm
 from app_curriculum.models import Standard
 from .models import Standard, Course, Lesson
+from django.contrib.auth.mixins import AccessMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 # Create your views here.
 
-class StandardListView(ListView):
+
+
+class StandardListView(LoginRequiredMixin,ListView):
+    login_url = reverse_lazy('user_login',current_app='app_users')
+    redirect_field_name = 'redirect_to'
+    template_name = 'app_curriculum/standard_list_view.html'
     context_object_name = 'standards'
     model = Standard
-    template_name = 'app_curriculum/standard_list_view.html'
+
 
 class SubjectListView(DetailView):
     context_object_name = 'standards'
@@ -85,15 +97,13 @@ class LessonDetailView(DetailView,FormView):
             print("reply form is returned")
             return self.form2_valid(form)
     
-
-
-
-class LessonCreateView(CreateView):
+class LessonCreateView(UserPassesTestMixin,CreateView):
     form_class = LessonForm
     context_object_name = 'subject'
     model = Course
     template_name = 'app_curriculum/lesson_create.html'
-
+    permission_denied_message = 'Only staff can create lessons'
+  
     def get_success_url(self):
         self.object = self.get_object()
         standard = self.object.standard
@@ -107,19 +117,27 @@ class LessonCreateView(CreateView):
         my_form.Course = self.object
         my_form.save()
         return HttpResponseRedirect(self.get_success_url())
+    
+    def test_func(self):
+        return self.request.user.is_staff
 
-class LessonUpdateView(UpdateView):
+
+
+class LessonUpdateView(UserPassesTestMixin,UpdateView):
     fields = ('name','position','video','ppt','Notes')
     model = Lesson
     template_name = 'app_curriculum/lesson_update.html'
     context_object_name = 'lessons'
+    def test_func(self):
+        return self.request.user.is_staff
 
 
-class LessonDeleteView(DeleteView):
+class LessonDeleteView(UserPassesTestMixin,DeleteView):
     model = Lesson
     context_object_name = 'lessons'
     template_name = 'app_curriculum/lesson_delete.html'
-
+    def test_func(self):
+        return self.request.user.is_staff
     def get_success_url(self):
         standard = self.object.Standard
         Course = self.object.Course
