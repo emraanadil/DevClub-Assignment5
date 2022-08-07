@@ -15,9 +15,9 @@ You need to clone the repo in your local environment and run
 
 >python manage.py migrate.
 
-##Access From Anywhere:
+## Access From Anywhere:
 
-Visit: https://emraanadil.pythonanywhere.com
+### Visit: https://emraanadil.pythonanywhere.com
 In the navbar you first need to go to register yourself. Login with same credentials and you will be able to access the LMS. If you aren't logged in you will be redirected to login page. In LMS page you will have different years of study. After clicking on a particular year you will have cards of courses in that particular year.From courses you can view different lectures where you will be able to acces the video lecture, post comments and replies in the lecture page.
 
 ### Note: 
