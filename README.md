@@ -7,8 +7,8 @@ The LMS has been designed by keeping the students as well as teachers in mind.
 You need to clone the repo in your local environment and run 
 > pip install -r requirements.txt
  ---this will install all the dependencies in your local machine. Then run :
->python manage.py make migrations
->python manage.py migrate
+>python manage.py make migrations<
+>python manage.py migrate<
 
 ##Access From Anywhere:
 
